@@ -1,4 +1,4 @@
-package com.olegmisko.newsapplication;
+package com.olegmisko.newsapplication.main.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.olegmisko.newsapplication.R;
+import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -76,20 +79,21 @@ public class NavigationDrawerActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        /*
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } */
+        if (id == R.id.nav_world_news) {
+            // TODO: Load world news pickup fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new WorldNewsPickupFragment()).commit();
+        } else if (id == R.id.nav_business_news) {
+            // TODO: Load business news  pickup fragment
+        } else if (id == R.id.nav_sports_news) {
+            // TODO: Load sports news  pickup fragment
+        } else if (id == R.id.nav_it_news) {
+            // TODO: Load IT news  pickup fragment
+        } else if (id == R.id.nav_settings) {
+            // TODO: Load settings fragment
+        } else if (id == R.id.nav_about) {
+            // TODO: Load about application fragment
+        }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
