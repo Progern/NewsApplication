@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">NewsApplication</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="world_news">World News</string>
+    <string name="business_news">Business news</string>
+    <string name="sport_news">Sports news</string>
+    <string name="it_news">IT News</string>
+    <string name="other">Other</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+</resources>
