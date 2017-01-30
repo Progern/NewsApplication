@@ -3,9 +3,15 @@ package com.olegmisko.newsapplication.main.Models;
 /*This class represents a single-news
 * with title and short description*/
 
-public class News {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class News {
+    @Expose
+    @SerializedName("title")
     private String title;
+    @Expose
+    @SerializedName("description")
     private String shortDescription;
 
     public News(String title, String shortDescription) {

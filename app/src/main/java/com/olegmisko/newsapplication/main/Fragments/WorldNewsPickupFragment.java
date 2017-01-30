@@ -7,17 +7,25 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Adapters.NewsListAdapter;
+import com.olegmisko.newsapplication.main.Config.AppConfig;
 import com.olegmisko.newsapplication.main.Models.News;
 import com.olegmisko.newsapplication.main.Models.NewsGroup;
+import com.olegmisko.newsapplication.main.Models.NewsList;
+import com.olegmisko.newsapplication.main.Services.NetworkService;
 
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class WorldNewsPickupFragment extends Fragment {
@@ -25,6 +33,7 @@ public class WorldNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
     private NewsListAdapter newsListAdapter;
+    private List returnableNewsList = null;
     // news_titles_rv
 
     @Nullable
@@ -33,6 +42,7 @@ public class WorldNewsPickupFragment extends Fragment {
         getActivity().setTitle("World News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
+        getNewsListFromSource(AppConfig.BBC_SOURCE);
         News firstOneBBC = new News("Trump executive order on refugee and travel suspension",
                 "US President Donald Trump has signed a wide-ranging executive order, halting all refugee admissions and barring " +
                         "temporarily people from seven Muslim-majority countries. His decision has been sharply criticised by rights groups.");
@@ -62,5 +72,29 @@ public class WorldNewsPickupFragment extends Fragment {
         newsGroupsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         newsGroupsRecyclerView.addItemDecoration(dividerItemDecoration);
         return fragmentMainView;
+    }
+
+    @Nullable
+    private List<NewsList> getNewsListFromSource(String source) {
+
+        Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConfig.TOP, AppConfig.API_KEY);
+        newsCall.enqueue(new Callback<NewsList>() {
+            @Override
+            public void onResponse(Call<NewsList> call, Response<NewsList> response) {
+                if (response.isSuccessful()) {
+                    returnableNewsList = response.body().getNewsList();
+                    Log.d("MY_LOG", "Response is successful");
+                } else {
+                    Log.d("MY_LOG", "Response is unsuccessful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NewsList> call, Throwable t) {
+                Log.d("MY_LOG", "Response failed");
+            }
+        });
+
+        return returnableNewsList;
     }
 }
