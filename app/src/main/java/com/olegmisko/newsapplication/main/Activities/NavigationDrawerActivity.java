@@ -17,10 +17,10 @@ import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String LOG_TAG = "DEFAULT_LOG";
     private  Toolbar toolbar;
     private  DrawerLayout drawer;
     private  NavigationView navigationView;
-    private static final String LOG_TAG = "DEFAULT_LOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
+        drawer.openDrawer(GravityCompat.START, true);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

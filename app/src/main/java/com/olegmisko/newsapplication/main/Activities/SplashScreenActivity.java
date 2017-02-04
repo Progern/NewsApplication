@@ -44,6 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 loadProgressBar.setProgress(progress);
                 Intent startApplication = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
                 startActivity(startApplication);
+                overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
             }
         };
         mCountDownTimer.start();
