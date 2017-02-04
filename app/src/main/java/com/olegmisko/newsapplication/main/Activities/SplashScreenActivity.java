@@ -42,7 +42,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onFinish() {
                 progress++;
                 loadProgressBar.setProgress(progress);
-                Intent startApplication = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent startApplication = new Intent(getApplicationContext(), AuthorizationActivity.class);
                 startActivity(startApplication);
                 overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
             }
