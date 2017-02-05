@@ -10,29 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.olegmisko.newsapplication.main.Activities.LoginActivity">
 
-    <EditText
-        android:id="@+id/usernameField"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName" />
-
-
-    <EditText
-        android:id="@+id/passwordField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/usernameField"
-        android:layout_below="@+id/usernameField"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword" />
-
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"
@@ -41,15 +18,56 @@
         android:layout_marginTop="25dp"
         android:src="@drawable/login_screen" />
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp">
+
+        <EditText
+            android:id="@+id/usernameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/submitButton"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/submitButton"
+            android:layout_below="@+id/input_layout_username"
+            android:layout_marginTop="37dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/submitButton"
-        android:layout_width="200dp"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="@drawable/transparent_app_buttons"
-        android:text="Submit"
+        android:text="Login"
         android:textColor="@color/colorPrimary" />
 
 

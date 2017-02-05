@@ -2,12 +2,17 @@ package com.olegmisko.newsapplication.main.Models;
 
 /* Realm model of user to handle login and sign up */
 
-import io.realm.RealmModel;
+import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
-public class User implements RealmModel {
+@RealmClass
+public class User extends RealmObject {
 
-    private String username;
-    private String password;
+    private String username = "";
+    private String password = "";
+
+    public User() {
+    }
 
     public User(String username, String password) {
         this.username = username;
