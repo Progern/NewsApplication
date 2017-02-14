@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         DatabaseService.getSharedInstance().initRealm(this);
         boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
         if (wasSuccessfull) {
-            showSnackBar(wasSuccessfull, mainLayout);
             Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
             startActivity(loadMainActivity);
             overridePendingTransition(R.anim.alpha, R.anim.alpha_out);

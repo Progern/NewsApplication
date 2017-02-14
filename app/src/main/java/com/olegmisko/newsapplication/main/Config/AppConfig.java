@@ -9,11 +9,15 @@ public class AppConfig {
     /* Sorting configurations */
 
     public static final String TOP = "top";
-    public static final String LATEST = "lates";
+    public static final String LATEST = "latest";
 
 
     /* Section of  world news sources */
 
     public static final String BBC_SOURCE = "bbc-news";
     public static final String THE_GUARDIAN_SOURCE = "the-guardian-uk";
+    public static final String CNN = "cnn";
+    public static final String DIE_ZEIT = "die-zeit";
+    public static final String NEW_YORK_MAGAZINE = "new-york-magazine";
+
 }

@@ -12,11 +12,11 @@ public class News {
     private String title;
     @Expose
     @SerializedName("description")
-    private String shortDescription;
+    private String description;
 
-    public News(String title, String shortDescription) {
+    public News(String title, String description) {
         this.title = title;
-        this.shortDescription = shortDescription;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -28,10 +28,10 @@ public class News {
     }
 
     public String getShortDescription() {
-        return shortDescription;
+        return description;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setShortDescription(String description) {
+        this.description = description;
     }
 }

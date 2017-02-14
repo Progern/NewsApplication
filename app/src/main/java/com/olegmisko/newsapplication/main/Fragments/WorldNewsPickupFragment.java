@@ -1,7 +1,9 @@
 package com.olegmisko.newsapplication.main.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -33,8 +35,14 @@ public class WorldNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
     private NewsListAdapter newsListAdapter;
-    private List returnableNewsList = null;
-    // news_titles_rv
+    private List<News> bbc_l;
+    private List<News> guardian_l;
+    private List<News> die_zeit_l;
+    private List<News> cnn_l;
+    private List<News> new_york_magazine_l;
+    private Handler mTimeHandler;
+    private ProgressDialog dialog;
+
 
     @Nullable
     @Override
@@ -42,47 +50,50 @@ public class WorldNewsPickupFragment extends Fragment {
         getActivity().setTitle("World News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
-        getNewsListFromSource(AppConfig.BBC_SOURCE);
-        News firstOneBBC = new News("Trump executive order on refugee and travel suspension",
-                "US President Donald Trump has signed a wide-ranging executive order, halting all refugee admissions and barring " +
-                        "temporarily people from seven Muslim-majority countries. His decision has been sharply criticised by rights groups.");
-
-        News secondOneBBC = new News("Trump executive order", "President Donald Trump's order suspending immigration from seven " +
-                "Muslim-majority countries for 90 days has left many foreigners in limbo. " +
-                "Here are some of their experiences:");
-
-        News guardianOne = new News("François Fillon warns: 'Leave my wife out of the election'", "The beleaguered rightwing French presidential candidate François Fillon has used a speech at a Paris " +
-                "rally to hit back at claims that his wife was paid €500,000 over eight years for a fake job as a " +
-                "parliamentary assistant, warning: “Leave my wife out of the election.”");
-
-        News guardianTwo = new News("US commando dies in Yemen raid as Trump counter-terror plans take shape", "The Pentagon did not address rumors of civilian casualties " +
-                "currently circulating on social media. " +
-                "An aircraft malfunction led to what the Pentagon called a " +
-                "“hard landing in a nearby location”. Commandos intentionally destroyed the aircraft, which local residents and officials said was a helicopter.");
-
-        NewsGroup bbc = new NewsGroup("BBC", R.drawable.bbc_news_icon, Arrays.asList(firstOneBBC, secondOneBBC));
-        NewsGroup theGuardian = new NewsGroup("The Guardian", R.drawable.the_guardian_icon, Arrays.asList(guardianOne, guardianTwo));
-        List newsGroups = Arrays.asList(bbc, theGuardian);
-
         newsGroupsRecyclerView = (RecyclerView) fragmentMainView.findViewById(R.id.news_titles_rv);
-        newsListAdapter = new NewsListAdapter(mContext, newsGroups);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(newsGroupsRecyclerView.getContext(),
                 new LinearLayoutManager(mContext).getOrientation());
-        newsGroupsRecyclerView.setAdapter(newsListAdapter);
         newsGroupsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         newsGroupsRecyclerView.addItemDecoration(dividerItemDecoration);
+        dialog = ProgressDialog.show(getContext(), "Loading News", "Please wait. Getting news data");
+        performNewsHTTPRequests();
+        dismissDialogAndLoadData();
         return fragmentMainView;
     }
 
-    @Nullable
-    private List<NewsList> getNewsListFromSource(String source) {
+    /* Fetch data, create NewsGroups */
+    private void getLatestNews() {
+        NewsGroup bbc = new NewsGroup("BBC", R.drawable.bbc_news_icon, bbc_l);
+        NewsGroup theGuardian = new NewsGroup("The Guardian", R.drawable.the_guardian_icon, guardian_l);
+        NewsGroup cnn = new NewsGroup("CNN", R.drawable.cnn_news, cnn_l);
+        NewsGroup die_zeit = new NewsGroup("Die Zeit", R.drawable.die_zeit_icon, die_zeit_l);
+        NewsGroup ny_magazine = new NewsGroup("New York Magazine", R.drawable.nymag_icon, new_york_magazine_l);
+        List allLatestNews = Arrays.asList(bbc, theGuardian, cnn, die_zeit, ny_magazine);
+        newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
+        newsGroupsRecyclerView.setAdapter(newsListAdapter);
+    }
 
+    /* Perform requests and fetch data from
+    * endpoint server with news stored on. */
+    private void performNewsHTTPRequests() {
+        getNewsListFromSource(AppConfig.BBC_SOURCE);
+        getNewsListFromSource(AppConfig.NEW_YORK_MAGAZINE);
+        getNewsListFromSource(AppConfig.THE_GUARDIAN_SOURCE);
+        getNewsListFromSource(AppConfig.DIE_ZEIT);
+        getNewsListFromSource(AppConfig.CNN);
+    }
+
+
+    /* Uses Retrofit2 to perform HTTP-requests and
+     * convert response into NewsGroup model */
+    @Nullable
+    private void getNewsListFromSource(final String source) {
         Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConfig.TOP, AppConfig.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {
                 if (response.isSuccessful()) {
-                    returnableNewsList = response.body().getNewsList();
+                    checkSourceAndFetchData(source, response.body().getNewsList());
                     Log.d("MY_LOG", "Response is successful");
                 } else {
                     Log.d("MY_LOG", "Response is unsuccessful");
@@ -94,7 +105,38 @@ public class WorldNewsPickupFragment extends Fragment {
                 Log.d("MY_LOG", "Response failed");
             }
         });
+    }
 
-        return returnableNewsList;
+    /* Checks due to request into what
+    * array list we should fetch our data */
+    private void checkSourceAndFetchData(String source, List<News> responseList) {
+        switch (source) {
+            case "bbc-news":
+                bbc_l = responseList;
+                break;
+            case "the-guardian-uk":
+                guardian_l = responseList;
+                break;
+            case "cnn":
+                cnn_l = responseList;
+                break;
+            case "die-zeit":
+                die_zeit_l = responseList;
+                break;
+            case "new-york-magazine":
+                new_york_magazine_l = responseList;
+                break;
+        }
+    }
+
+    private void dismissDialogAndLoadData() {
+        mTimeHandler = new Handler();
+        mTimeHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                getLatestNews();
+            }
+        }, 5000);
     }
 }
