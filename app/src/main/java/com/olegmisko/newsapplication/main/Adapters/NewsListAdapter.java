@@ -19,9 +19,12 @@ import java.util.List;
 public class NewsListAdapter extends ExpandableRecyclerAdapter<NewsGroupViewHolder, NewsViewHolder> {
 
     private LayoutInflater inflater;
+    private List<? extends ParentListItem> parentItemList;
+
 
     public NewsListAdapter(Context context, @NonNull List<? extends ParentListItem> parentItemList) {
         super(parentItemList);
+        this.parentItemList = parentItemList;
         inflater = LayoutInflater.from(context);
     }
 
@@ -49,4 +52,6 @@ public class NewsListAdapter extends ExpandableRecyclerAdapter<NewsGroupViewHold
         News news = (News) childListItem;
         childViewHolder.bindView(news);
     }
+
+
 }

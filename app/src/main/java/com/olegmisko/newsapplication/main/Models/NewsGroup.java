@@ -4,19 +4,24 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 
 import java.util.List;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+
 /* This class represents a news headline
  * like BBC, The Guardian, etc. */
-public class NewsGroup implements ParentListItem {
+public class NewsGroup extends RealmObject implements ParentListItem {
 
     private String title;
     private Integer icon;
+    @Ignore
+    private List<News> mNews;
 
-    private List mNews;
+    public NewsGroup() {
+    }
 
-    public NewsGroup(String title, Integer icon, List mNews) {
+    public NewsGroup(String title, Integer icon, List<News> mNews) {
         this.title = title;
         this.icon = icon;
-
         this.mNews = mNews;
     }
 

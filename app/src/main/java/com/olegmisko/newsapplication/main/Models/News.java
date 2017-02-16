@@ -6,17 +6,27 @@ package com.olegmisko.newsapplication.main.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class News {
+import io.realm.RealmObject;
+
+public class News extends RealmObject {
     @Expose
     @SerializedName("title")
     private String title;
     @Expose
     @SerializedName("description")
     private String description;
+    @Expose
+    @SerializedName("url")
+    private String url;
 
-    public News(String title, String description) {
+    public News() {
+
+    }
+
+    public News(String title, String description, String url) {
         this.title = title;
         this.description = description;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -33,5 +43,13 @@ public class News {
 
     public void setShortDescription(String description) {
         this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

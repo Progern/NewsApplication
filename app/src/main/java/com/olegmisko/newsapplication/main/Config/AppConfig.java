@@ -17,7 +17,7 @@ public class AppConfig {
     public static final String BBC_SOURCE = "bbc-news";
     public static final String THE_GUARDIAN_SOURCE = "the-guardian-uk";
     public static final String CNN = "cnn";
-    public static final String DIE_ZEIT = "die-zeit";
+    public static final String HANDLESLBLATT = "bild";
     public static final String NEW_YORK_MAGAZINE = "new-york-magazine";
 
 }
