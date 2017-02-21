@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.olegmisko.newsapplication.R;
+import com.olegmisko.newsapplication.main.Fragments.BusinessNewsPickupFragment;
+import com.olegmisko.newsapplication.main.Fragments.SportsNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
 
 public class NavigationDrawerActivity extends AppCompatActivity
@@ -84,9 +86,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
             // TODO: Load world news pickup fragment
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new WorldNewsPickupFragment()).commit();
         } else if (id == R.id.nav_business_news) {
-            // TODO: Load business news  pickup fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new BusinessNewsPickupFragment()).commit();
         } else if (id == R.id.nav_sports_news) {
-            // TODO: Load sports news  pickup fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SportsNewsPickupFragment()).commit();
         } else if (id == R.id.nav_it_news) {
             // TODO: Load IT news  pickup fragment
         } else if (id == R.id.nav_settings) {

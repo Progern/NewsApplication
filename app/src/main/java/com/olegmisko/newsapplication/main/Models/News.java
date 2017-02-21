@@ -18,38 +18,46 @@ public class News extends RealmObject {
     @Expose
     @SerializedName("url")
     private String url;
+    @Expose
+    @SerializedName("urlToImage")
+    private String imageUrl;
+    @Expose
+    @SerializedName("publishedAt")
+    private String publishedAt;
 
     public News() {
 
     }
 
-    public News(String title, String description, String url) {
+    public News(String title, String description, String url, String imageUrl, String publishedAt) {
         this.title = title;
         this.description = description;
         this.url = url;
+        this.imageUrl = imageUrl;
+        this.publishedAt = publishedAt;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getShortDescription() {
         return description;
-    }
-
-    public void setShortDescription(String description) {
-        this.description = description;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+
+    public String getImageUrl() {
+        return imageUrl;
     }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+
 }

@@ -20,11 +20,13 @@ public class NewsListAdapter extends ExpandableRecyclerAdapter<NewsGroupViewHold
 
     private LayoutInflater inflater;
     private List<? extends ParentListItem> parentItemList;
+    private Context context;
 
 
     public NewsListAdapter(Context context, @NonNull List<? extends ParentListItem> parentItemList) {
         super(parentItemList);
         this.parentItemList = parentItemList;
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -50,7 +52,7 @@ public class NewsListAdapter extends ExpandableRecyclerAdapter<NewsGroupViewHold
     @Override
     public void onBindChildViewHolder(NewsViewHolder childViewHolder, int position, Object childListItem) {
         News news = (News) childListItem;
-        childViewHolder.bindView(news);
+        childViewHolder.bindView(news, context);
     }
 
 
