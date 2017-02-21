@@ -29,19 +29,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class WorldNewsPickupFragment extends Fragment {
-
+public class BusinessNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
     private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
-    private List<News> bbc_l;
-    private List<News> guardian_l;
-    private List<News> handelsblatt;
-    private List<News> cnn_l;
-    private List<News> new_york_magazine_l;
+    private List<News> business_insider;
+    private List<News> financial_times;
+    private List<News> the_new_york_times;
+    private List<News> usa_today;
+    private List<News> the_wall_street_journal;
 
     private boolean wasAlreadyLoaded = false;
     private int loadedNewsHeaders = 0;
@@ -51,7 +50,7 @@ public class WorldNewsPickupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("World News");
+        getActivity().setTitle("Business News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
         newsGroupsRecyclerView = (RecyclerView) fragmentMainView.findViewById(R.id.news_titles_rv);
@@ -71,12 +70,12 @@ public class WorldNewsPickupFragment extends Fragment {
 
     /* Fetch data, create NewsGroups */
     private void getLatestNews() {
-        NewsGroup bbc = new NewsGroup("BBC", R.drawable.bbc_news_icon, bbc_l);
-        NewsGroup theGuardian = new NewsGroup("The Guardian", R.drawable.the_guardian_icon, guardian_l);
-        NewsGroup cnn = new NewsGroup("CNN", R.drawable.cnn_news, cnn_l);
-        NewsGroup die_zeit = new NewsGroup("Handelsblatt", R.drawable.handelsblatt_icon, handelsblatt);
-        NewsGroup ny_magazine = new NewsGroup("New York Magazine", R.drawable.nymag_icon, new_york_magazine_l);
-        List allLatestNews = Arrays.asList(bbc, theGuardian, cnn, die_zeit, ny_magazine);
+        NewsGroup business_insider_group = new NewsGroup("Business Insider", R.drawable.business_insider, business_insider);
+        NewsGroup financial_times_group = new NewsGroup("Financial times", R.drawable.financial_times_ico, financial_times);
+        NewsGroup the_ny_times_group = new NewsGroup("The NY Times", R.drawable.new_york_times, usa_today);
+        NewsGroup usa_today_group = new NewsGroup("USA Today", R.drawable.usa_today, the_new_york_times);
+        NewsGroup the_ws_group = new NewsGroup("The Wall Street Journal ", R.drawable.wall_street_journal, the_wall_street_journal);
+        List allLatestNews = Arrays.asList(business_insider_group, financial_times_group, the_ny_times_group, usa_today_group, the_ws_group);
         newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
@@ -84,11 +83,11 @@ public class WorldNewsPickupFragment extends Fragment {
     /* Perform requests and fetch data from
     * endpoint server with news stored on. */
     private void performNewsHTTPRequests() {
-        getNewsListFromSource(AppConfig.BBC_SOURCE);
-        getNewsListFromSource(AppConfig.NEW_YORK_MAGAZINE);
-        getNewsListFromSource(AppConfig.THE_GUARDIAN_SOURCE);
-        getNewsListFromSource(AppConfig.HANDLESLBLATT);
-        getNewsListFromSource(AppConfig.CNN);
+        getNewsListFromSource(AppConfig.BUSINESS_INSIDER);
+        getNewsListFromSource(AppConfig.FINANCIAL_TIMES);
+        getNewsListFromSource(AppConfig.THE_NEW_YORK_TIMES);
+        getNewsListFromSource(AppConfig.USA_TODAY);
+        getNewsListFromSource(AppConfig.THE_WALL_STREET_JOURNAL);
     }
 
     /* Performs HTTP-requests to the endpoint-server
@@ -119,24 +118,24 @@ public class WorldNewsPickupFragment extends Fragment {
     * array list we should fetch our data */
     private void checkSourceAndFetchData(String source, List<News> responseList) {
         switch (source) {
-            case "bbc-news":
-                bbc_l = responseList;
+            case "business-insider":
+                business_insider = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "the-guardian-uk":
-                guardian_l = responseList;
+            case "financial-times":
+                financial_times = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "cnn":
-                cnn_l = responseList;
+            case "the-new-york-times":
+                usa_today = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "bild":
-                handelsblatt = responseList;
+            case "usa-today":
+                the_new_york_times = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "new-york-magazine":
-                new_york_magazine_l = responseList;
+            case "the-wall-street-journal":
+                the_wall_street_journal = responseList;
                 loadedNewsHeaders++;
                 break;
         }
@@ -154,5 +153,3 @@ public class WorldNewsPickupFragment extends Fragment {
         }
     }
 }
-
-

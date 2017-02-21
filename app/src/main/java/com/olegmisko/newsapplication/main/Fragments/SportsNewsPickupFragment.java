@@ -29,19 +29,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class WorldNewsPickupFragment extends Fragment {
-
+public class SportsNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
     private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
-    private List<News> bbc_l;
-    private List<News> guardian_l;
-    private List<News> handelsblatt;
-    private List<News> cnn_l;
-    private List<News> new_york_magazine_l;
+    private List<News> espn;
+    private List<News> football_italia;
+    private List<News> nfl;
+    private List<News> sky_sports;
+    private List<News> talksport;
 
     private boolean wasAlreadyLoaded = false;
     private int loadedNewsHeaders = 0;
@@ -51,7 +50,7 @@ public class WorldNewsPickupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("World News");
+        getActivity().setTitle("Sports News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
         newsGroupsRecyclerView = (RecyclerView) fragmentMainView.findViewById(R.id.news_titles_rv);
@@ -71,12 +70,12 @@ public class WorldNewsPickupFragment extends Fragment {
 
     /* Fetch data, create NewsGroups */
     private void getLatestNews() {
-        NewsGroup bbc = new NewsGroup("BBC", R.drawable.bbc_news_icon, bbc_l);
-        NewsGroup theGuardian = new NewsGroup("The Guardian", R.drawable.the_guardian_icon, guardian_l);
-        NewsGroup cnn = new NewsGroup("CNN", R.drawable.cnn_news, cnn_l);
-        NewsGroup die_zeit = new NewsGroup("Handelsblatt", R.drawable.handelsblatt_icon, handelsblatt);
-        NewsGroup ny_magazine = new NewsGroup("New York Magazine", R.drawable.nymag_icon, new_york_magazine_l);
-        List allLatestNews = Arrays.asList(bbc, theGuardian, cnn, die_zeit, ny_magazine);
+        NewsGroup espn_group = new NewsGroup("ESPN", R.drawable.espn, espn);
+        NewsGroup football_italia_group = new NewsGroup("Football Italia", R.drawable.football_italia, football_italia);
+        NewsGroup nfl_group = new NewsGroup("NFL", R.drawable.nfl, sky_sports);
+        NewsGroup sky_sports_group = new NewsGroup("SkySports", R.drawable.skysports, nfl);
+        NewsGroup talksport_group = new NewsGroup("Talksport", R.drawable.talksport, talksport);
+        List allLatestNews = Arrays.asList(espn_group, football_italia_group, nfl_group, sky_sports_group, talksport_group);
         newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
@@ -84,11 +83,11 @@ public class WorldNewsPickupFragment extends Fragment {
     /* Perform requests and fetch data from
     * endpoint server with news stored on. */
     private void performNewsHTTPRequests() {
-        getNewsListFromSource(AppConfig.BBC_SOURCE);
-        getNewsListFromSource(AppConfig.NEW_YORK_MAGAZINE);
-        getNewsListFromSource(AppConfig.THE_GUARDIAN_SOURCE);
-        getNewsListFromSource(AppConfig.HANDLESLBLATT);
-        getNewsListFromSource(AppConfig.CNN);
+        getNewsListFromSource(AppConfig.ESPN);
+        getNewsListFromSource(AppConfig.FOOTBALL_ITALIA);
+        getNewsListFromSource(AppConfig.NFL);
+        getNewsListFromSource(AppConfig.SKY_SPORTS);
+        getNewsListFromSource(AppConfig.TALKSPORT);
     }
 
     /* Performs HTTP-requests to the endpoint-server
@@ -119,24 +118,24 @@ public class WorldNewsPickupFragment extends Fragment {
     * array list we should fetch our data */
     private void checkSourceAndFetchData(String source, List<News> responseList) {
         switch (source) {
-            case "bbc-news":
-                bbc_l = responseList;
+            case "espn":
+                espn = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "the-guardian-uk":
-                guardian_l = responseList;
+            case "football-italia":
+                football_italia = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "cnn":
-                cnn_l = responseList;
+            case "nfl-news":
+                sky_sports = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "bild":
-                handelsblatt = responseList;
+            case "sky-sports-news":
+                nfl = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "new-york-magazine":
-                new_york_magazine_l = responseList;
+            case "talksport":
+                talksport = responseList;
                 loadedNewsHeaders++;
                 break;
         }
@@ -154,5 +153,3 @@ public class WorldNewsPickupFragment extends Fragment {
         }
     }
 }
-
-
