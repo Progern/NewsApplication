@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Adapters.NewsListAdapter;
-import com.olegmisko.newsapplication.main.Config.AppConfig;
+import com.olegmisko.newsapplication.main.Config.AppConstants;
 import com.olegmisko.newsapplication.main.Models.News;
 import com.olegmisko.newsapplication.main.Models.NewsGroup;
 import com.olegmisko.newsapplication.main.Models.NewsList;
@@ -83,18 +83,18 @@ public class SportsNewsPickupFragment extends Fragment {
     /* Perform requests and fetch data from
     * endpoint server with news stored on. */
     private void performNewsHTTPRequests() {
-        getNewsListFromSource(AppConfig.ESPN);
-        getNewsListFromSource(AppConfig.FOOTBALL_ITALIA);
-        getNewsListFromSource(AppConfig.NFL);
-        getNewsListFromSource(AppConfig.SKY_SPORTS);
-        getNewsListFromSource(AppConfig.TALKSPORT);
+        getNewsListFromSource(AppConstants.ESPN);
+        getNewsListFromSource(AppConstants.FOOTBALL_ITALIA);
+        getNewsListFromSource(AppConstants.NFL);
+        getNewsListFromSource(AppConstants.SKY_SPORTS);
+        getNewsListFromSource(AppConstants.TALKSPORT);
     }
 
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
     @Nullable
     private void getNewsListFromSource(final String source) {
-        Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConfig.TOP, AppConfig.API_KEY);
+        Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {

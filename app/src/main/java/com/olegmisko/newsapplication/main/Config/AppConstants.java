@@ -1,7 +1,7 @@
 package com.olegmisko.newsapplication.main.Config;
 
 
-public class AppConfig {
+public class AppConstants {
 
     public static final String BASE_REQUEST_URL = "https://newsapi.org/v1/";
     public static final String API_KEY = "70e1bc5e1b934612ad8930ba4eb1a0f2";
@@ -36,6 +36,15 @@ public class AppConfig {
     public static final String NFL = "nfl-news";
     public static final String SKY_SPORTS = "sky-sports-news";
     public static final String TALKSPORT = "talksport";
+
+    /* Section if IT news sources */
+
+    public static final String IGN = "ign";
+    public static final String REDDIT = "reddit-r-all";
+    public static final String TECHCRUNCH = "techcrunch";
+    public static final String T3N = "t3n";
+    public static final String GOOGLE = "google-news";
+
 
 
 

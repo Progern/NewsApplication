@@ -1,5 +1,6 @@
 package com.olegmisko.newsapplication.main.Fragments;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -29,18 +30,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BusinessNewsPickupFragment extends Fragment {
+public class ItNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
     private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
-    private List<News> business_insider;
-    private List<News> financial_times;
-    private List<News> the_new_york_times;
-    private List<News> usa_today;
-    private List<News> the_wall_street_journal;
+    private List<News> ign;
+    private List<News> reddit;
+    private List<News> techcrunch;
+    private List<News> t3n;
+    private List<News> google;
 
     private boolean wasAlreadyLoaded = false;
     private int loadedNewsHeaders = 0;
@@ -50,7 +51,7 @@ public class BusinessNewsPickupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("Business News");
+        getActivity().setTitle("IT News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
         newsGroupsRecyclerView = (RecyclerView) fragmentMainView.findViewById(R.id.news_titles_rv);
@@ -70,12 +71,12 @@ public class BusinessNewsPickupFragment extends Fragment {
 
     /* Fetch data, create NewsGroups */
     private void getLatestNews() {
-        NewsGroup business_insider_group = new NewsGroup("Business Insider", R.drawable.business_insider, business_insider);
-        NewsGroup financial_times_group = new NewsGroup("Financial times", R.drawable.financial_times_ico, financial_times);
-        NewsGroup the_ny_times_group = new NewsGroup("The NY Times", R.drawable.new_york_times, usa_today);
-        NewsGroup usa_today_group = new NewsGroup("USA Today", R.drawable.usa_today, the_new_york_times);
-        NewsGroup the_ws_group = new NewsGroup("The Wall Street Journal ", R.drawable.wall_street_journal, the_wall_street_journal);
-        List allLatestNews = Arrays.asList(business_insider_group, financial_times_group, the_ny_times_group, usa_today_group, the_ws_group);
+        NewsGroup ign_group = new NewsGroup("IGN", R.drawable.ign, ign);
+        NewsGroup reddit_group = new NewsGroup("Reddit", R.drawable.reddit, reddit);
+        NewsGroup techcrunch_group = new NewsGroup("Techcrunch", R.drawable.techcrunch, techcrunch);
+        NewsGroup t3n_group = new NewsGroup("T3N", R.drawable.t3n, t3n);
+        NewsGroup google_group = new NewsGroup("Google", R.drawable.google_news, google);
+        List allLatestNews = Arrays.asList(ign_group, reddit_group, techcrunch_group, t3n_group, google_group);
         newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
@@ -83,11 +84,11 @@ public class BusinessNewsPickupFragment extends Fragment {
     /* Perform requests and fetch data from
     * endpoint server with news stored on. */
     private void performNewsHTTPRequests() {
-        getNewsListFromSource(AppConstants.BUSINESS_INSIDER);
-        getNewsListFromSource(AppConstants.FINANCIAL_TIMES);
-        getNewsListFromSource(AppConstants.THE_NEW_YORK_TIMES);
-        getNewsListFromSource(AppConstants.USA_TODAY);
-        getNewsListFromSource(AppConstants.THE_WALL_STREET_JOURNAL);
+        getNewsListFromSource(AppConstants.IGN);
+        getNewsListFromSource(AppConstants.REDDIT);
+        getNewsListFromSource(AppConstants.TECHCRUNCH);
+        getNewsListFromSource(AppConstants.T3N);
+        getNewsListFromSource(AppConstants.GOOGLE);
     }
 
     /* Performs HTTP-requests to the endpoint-server
@@ -118,24 +119,24 @@ public class BusinessNewsPickupFragment extends Fragment {
     * array list we should fetch our data */
     private void checkSourceAndFetchData(String source, List<News> responseList) {
         switch (source) {
-            case "business-insider":
-                business_insider = responseList;
+            case "ign":
+                ign = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "financial-times":
-                financial_times = responseList;
+            case "reddit-r-all":
+                reddit = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "the-new-york-times":
-                usa_today = responseList;
+            case "t3n":
+                t3n = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "usa-today":
-                the_new_york_times = responseList;
+            case "techcrunch":
+                techcrunch = responseList;
                 loadedNewsHeaders++;
                 break;
-            case "the-wall-street-journal":
-                the_wall_street_journal = responseList;
+            case "google-news":
+                google = responseList;
                 loadedNewsHeaders++;
                 break;
         }

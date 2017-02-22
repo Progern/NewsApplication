@@ -3,7 +3,7 @@ package com.olegmisko.newsapplication.main.Services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.olegmisko.newsapplication.main.Config.AppConfig;
+import com.olegmisko.newsapplication.main.Config.AppConstants;
 import com.olegmisko.newsapplication.main.Models.NewsList;
 
 import retrofit2.Call;
@@ -19,7 +19,7 @@ public interface RequestService {
             .create();
 
     public static final Retrofit RETROFIT = new Retrofit.Builder()
-            .baseUrl(AppConfig.BASE_REQUEST_URL)
+            .baseUrl(AppConstants.BASE_REQUEST_URL)
             .addConverterFactory(GsonConverterFactory.create(GSON))
             .build();
 

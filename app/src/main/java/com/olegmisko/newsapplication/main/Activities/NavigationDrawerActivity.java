@@ -7,12 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Fragments.BusinessNewsPickupFragment;
+import com.olegmisko.newsapplication.main.Fragments.ItNewsPickupFragment;
+import com.olegmisko.newsapplication.main.Fragments.SettingsFragment;
 import com.olegmisko.newsapplication.main.Fragments.SportsNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
 
@@ -69,7 +70,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Log.d(LOG_TAG, "Action settings pressed");
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SettingsFragment()).commit();
             return true;
         }
 
@@ -90,9 +91,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_sports_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SportsNewsPickupFragment()).commit();
         } else if (id == R.id.nav_it_news) {
-            // TODO: Load IT news  pickup fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new ItNewsPickupFragment()).commit();
         } else if (id == R.id.nav_settings) {
-            // TODO: Load settings fragment
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SettingsFragment()).commit();
         } else if (id == R.id.nav_about) {
             // TODO: Load about application fragment
         }
