@@ -11,7 +11,6 @@ import com.olegmisko.newsapplication.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MY_LOG";
     private ProgressBar loadProgressBar;
     private CountDownTimer mCountDownTimer;
     private int progress = 0;
@@ -30,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(5000, 50) {
+        mCountDownTimer = new CountDownTimer(2500, 25) {
 
             @Override
             public void onTick(long millisUntilFinished) {

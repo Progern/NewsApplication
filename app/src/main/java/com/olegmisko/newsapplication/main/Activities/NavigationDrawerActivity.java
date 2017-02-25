@@ -16,6 +16,7 @@ import com.olegmisko.newsapplication.main.Fragments.ItNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.SettingsFragment;
 import com.olegmisko.newsapplication.main.Fragments.SportsNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
+import com.onesignal.OneSignal;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +30,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        OneSignal.startInit(this).init();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

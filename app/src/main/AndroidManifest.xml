@@ -25,7 +25,8 @@
         </activity>
         <activity android:name=".main.Activities.AuthorizationActivity" />
         <activity android:name=".main.Activities.LoginActivity" />
-        <activity android:name=".main.Activities.RegistrationActivity"></activity>
+        <activity android:name=".main.Activities.RegistrationActivity" />
+        <activity android:name=".main.Activities.WebViewActivity"></activity>
     </application>
 
 </manifest>

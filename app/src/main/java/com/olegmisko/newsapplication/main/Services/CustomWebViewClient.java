@@ -1,6 +1,5 @@
 package com.olegmisko.newsapplication.main.Services;
 
-import android.net.Uri;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -11,5 +10,6 @@ public class CustomWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         return false;
     }
+
 
 }

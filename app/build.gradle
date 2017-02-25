@@ -11,6 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [onesignal_app_id               : "0b2f0fd5-f95d-4063-940e-bacb1a1cb501",
+                                onesignal_google_project_number: "608836283365"]
     }
     buildTypes {
         release {
@@ -29,9 +31,12 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.bignerdranch.android:expandablerecyclerview:2.1.1'
+    compile 'com.onesignal:OneSignal:3.4.0@aar'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
+    compile "com.google.android.gms:play-services-location:10.0.1"
     testCompile 'junit:junit:4.12'
 }
