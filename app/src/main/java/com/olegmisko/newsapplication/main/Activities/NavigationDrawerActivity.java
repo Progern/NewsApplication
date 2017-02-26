@@ -16,6 +16,7 @@ import com.olegmisko.newsapplication.main.Fragments.ItNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.SettingsFragment;
 import com.olegmisko.newsapplication.main.Fragments.SportsNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
+import com.olegmisko.newsapplication.main.Services.NotificationHandlerService;
 import com.onesignal.OneSignal;
 
 public class NavigationDrawerActivity extends AppCompatActivity
@@ -25,12 +26,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
     private  Toolbar toolbar;
     private  DrawerLayout drawer;
     private  NavigationView navigationView;
+    private NotificationHandlerService notificationHandlerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        OneSignal.startInit(this).init();
+        notificationHandlerService = new NotificationHandlerService(getApplicationContext());
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(notificationHandlerService)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .init();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

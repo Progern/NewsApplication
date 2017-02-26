@@ -11,6 +11,7 @@ import com.olegmisko.newsapplication.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    private static boolean activityStarted;
     private ProgressBar loadProgressBar;
     private CountDownTimer mCountDownTimer;
     private int progress = 0;
@@ -23,6 +24,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+        if (activityStarted
+                && getIntent() != null
+                && (getIntent().getFlags() & Intent.FLAG_ACTIVITY_REORDER_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
+        activityStarted = true;
         loadProgressBar = (ProgressBar) findViewById(R.id.applicationLoadingProgressBar);
         loadProgressBar.setProgress(progress);
         startTimer();
