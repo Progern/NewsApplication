@@ -32,7 +32,6 @@ import retrofit2.Response;
 public class SportsNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
-    private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
@@ -76,7 +75,7 @@ public class SportsNewsPickupFragment extends Fragment {
         NewsGroup sky_sports_group = new NewsGroup("SkySports", R.drawable.skysports, nfl);
         NewsGroup talksport_group = new NewsGroup("Talksport", R.drawable.talksport, talksport);
         List allLatestNews = Arrays.asList(espn_group, football_italia_group, nfl_group, sky_sports_group, talksport_group);
-        newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
+        NewsListAdapter newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
 
@@ -92,7 +91,6 @@ public class SportsNewsPickupFragment extends Fragment {
 
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
-    @Nullable
     private void getNewsListFromSource(final String source) {
         Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {

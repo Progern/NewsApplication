@@ -46,6 +46,4 @@ public class AppConstants {
     public static final String GOOGLE = "google-news";
 
 
-
-
 }

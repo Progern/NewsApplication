@@ -13,7 +13,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private static boolean activityStarted;
     private ProgressBar loadProgressBar;
-    private CountDownTimer mCountDownTimer;
     private int progress = 0;
 
     @Override
@@ -37,7 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(2500, 25) {
+        CountDownTimer mCountDownTimer = new CountDownTimer(2500, 25) {
 
             @Override
             public void onTick(long millisUntilFinished) {

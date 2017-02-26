@@ -19,7 +19,6 @@ import com.olegmisko.newsapplication.main.Services.DatabaseService;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText usernameField, passwordField;
-    private Button registerButton;
     private TextInputLayout usernameInputLayout, passwordInputLayout;
     private RelativeLayout mainLayout;
 
@@ -28,10 +27,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
         setTitle("Login");
+        DatabaseService.getSharedInstance().initRealm(this);
         mainLayout = (RelativeLayout) findViewById(R.id.activity_login2);
         usernameField = (EditText) findViewById(R.id.usernameField);
         passwordField = (EditText) findViewById(R.id.passwordField);
-        registerButton = (Button) findViewById(R.id.submitButton);
+        Button registerButton = (Button) findViewById(R.id.submitButton);
         usernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_username);
         passwordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_password);
 
@@ -49,14 +49,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validatePassword()) {
             return;
         }
-        DatabaseService.getSharedInstance().initRealm(this);
         boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
         if (wasSuccessfull) {
             Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
             startActivity(loadMainActivity);
             overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
         } else {
-            showSnackBar(wasSuccessfull, mainLayout);
+            showSnackBar(false, mainLayout);
         }
 
     }

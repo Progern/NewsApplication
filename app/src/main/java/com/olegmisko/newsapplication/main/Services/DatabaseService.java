@@ -23,7 +23,7 @@ public class DatabaseService {
     }
 
     public static void initRealm(Context context) {
-        realmDataBase.init(context);
+        Realm.init(context);
         realmDataBase = Realm.getDefaultInstance();
     }
 
@@ -32,10 +32,6 @@ public class DatabaseService {
             sharedInstance = new DatabaseService();
         }
         return sharedInstance;
-    }
-
-    public static Realm getRealmInstance() {
-        return realmDataBase;
     }
 
     public static void writeToDataBase(String username, String password) {

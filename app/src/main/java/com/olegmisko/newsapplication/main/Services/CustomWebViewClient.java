@@ -10,6 +10,4 @@ public class CustomWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         return false;
     }
-
-
 }

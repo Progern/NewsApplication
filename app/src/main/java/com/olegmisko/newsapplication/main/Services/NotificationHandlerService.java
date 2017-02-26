@@ -12,7 +12,7 @@ public class NotificationHandlerService implements OneSignal.NotificationOpenedH
 
     private Context context;
 
-    public NotificationHandlerService (Context context) {
+    public NotificationHandlerService(Context context) {
         this.context = context;
     }
 
@@ -23,7 +23,7 @@ public class NotificationHandlerService implements OneSignal.NotificationOpenedH
             Intent loadNews = new Intent(context, WebViewActivity.class);
             loadNews.putExtra("URL", result.notification.payload.launchURL);
             loadNews.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           context.startActivity(loadNews);
+            context.startActivity(loadNews);
         }
     }
 }

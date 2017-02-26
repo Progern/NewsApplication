@@ -1,6 +1,7 @@
 package com.olegmisko.newsapplication.main.Activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,22 +23,18 @@ import com.onesignal.OneSignal;
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String LOG_TAG = "DEFAULT_LOG";
-    private  Toolbar toolbar;
-    private  DrawerLayout drawer;
-    private  NavigationView navigationView;
-    private NotificationHandlerService notificationHandlerService;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        notificationHandlerService = new NotificationHandlerService(getApplicationContext());
+        NotificationHandlerService notificationHandlerService = new NotificationHandlerService(getApplicationContext());
         OneSignal.startInit(this)
                 .setNotificationOpenedHandler(notificationHandlerService)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .init();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -45,7 +42,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -87,7 +84,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

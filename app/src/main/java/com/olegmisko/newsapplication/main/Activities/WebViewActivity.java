@@ -14,9 +14,6 @@ import com.olegmisko.newsapplication.main.Services.CustomWebViewClient;
 
 public class WebViewActivity extends Activity {
 
-    private WebView mainWebView;
-    private String urlToLoad;
-    private CustomWebViewClient mWebViewClient;
     private ProgressBar loadPageProgress;
 
 
@@ -24,9 +21,9 @@ public class WebViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        mainWebView = (WebView) findViewById(R.id.mainWebView);
+        WebView mainWebView = (WebView) findViewById(R.id.mainWebView);
         loadPageProgress = (ProgressBar) findViewById(R.id.loadPageProgress);
-        mWebViewClient = new CustomWebViewClient();
+        CustomWebViewClient mWebViewClient = new CustomWebViewClient();
         mainWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
                 Log.d("MY_LOG", "Progress " + progress);
@@ -38,7 +35,7 @@ public class WebViewActivity extends Activity {
         mainWebView.setWebViewClient(mWebViewClient);
         hideStatusBar();
         Intent intent = getIntent();
-        urlToLoad = intent.getStringExtra("URL");
+        String urlToLoad = intent.getStringExtra("URL");
         if (urlToLoad != null) {
             mainWebView.loadUrl(urlToLoad);
         }
