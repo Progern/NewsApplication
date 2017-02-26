@@ -33,7 +33,6 @@ public class WorldNewsPickupFragment extends Fragment {
 
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
-    private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
@@ -77,7 +76,7 @@ public class WorldNewsPickupFragment extends Fragment {
         NewsGroup die_zeit = new NewsGroup("Handelsblatt", R.drawable.handelsblatt_icon, handelsblatt);
         NewsGroup ny_magazine = new NewsGroup("New York Magazine", R.drawable.nymag_icon, new_york_magazine_l);
         List allLatestNews = Arrays.asList(bbc, theGuardian, cnn, die_zeit, ny_magazine);
-        newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
+        NewsListAdapter newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
 
@@ -93,7 +92,6 @@ public class WorldNewsPickupFragment extends Fragment {
 
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
-    @Nullable
     private void getNewsListFromSource(final String source) {
         Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {

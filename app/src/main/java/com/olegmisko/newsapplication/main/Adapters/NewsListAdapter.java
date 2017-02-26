@@ -19,13 +19,11 @@ import java.util.List;
 public class NewsListAdapter extends ExpandableRecyclerAdapter<NewsGroupViewHolder, NewsViewHolder> {
 
     private LayoutInflater inflater;
-    private List<? extends ParentListItem> parentItemList;
     private Context context;
 
 
     public NewsListAdapter(Context context, @NonNull List<? extends ParentListItem> parentItemList) {
         super(parentItemList);
-        this.parentItemList = parentItemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }

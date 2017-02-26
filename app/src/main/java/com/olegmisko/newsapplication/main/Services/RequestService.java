@@ -14,11 +14,11 @@ import retrofit2.http.Query;
 
 public interface RequestService {
 
-    public static final Gson GSON = new GsonBuilder()
+    Gson GSON = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
 
-    public static final Retrofit RETROFIT = new Retrofit.Builder()
+    Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(AppConstants.BASE_REQUEST_URL)
             .addConverterFactory(GsonConverterFactory.create(GSON))
             .build();

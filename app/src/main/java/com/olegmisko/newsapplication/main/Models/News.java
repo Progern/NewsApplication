@@ -41,7 +41,6 @@ public class News extends RealmObject {
         return title;
     }
 
-
     public String getShortDescription() {
         return description;
     }
@@ -49,7 +48,6 @@ public class News extends RealmObject {
     public String getUrl() {
         return url;
     }
-
 
     public String getImageUrl() {
         return imageUrl;

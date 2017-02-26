@@ -33,7 +33,6 @@ import retrofit2.Response;
 public class ItNewsPickupFragment extends Fragment {
     private Context mContext;
     private RecyclerView newsGroupsRecyclerView;
-    private NewsListAdapter newsListAdapter;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
@@ -77,7 +76,7 @@ public class ItNewsPickupFragment extends Fragment {
         NewsGroup t3n_group = new NewsGroup("T3N", R.drawable.t3n, t3n);
         NewsGroup google_group = new NewsGroup("Google", R.drawable.google_news, google);
         List allLatestNews = Arrays.asList(ign_group, reddit_group, techcrunch_group, t3n_group, google_group);
-        newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
+        NewsListAdapter newsListAdapter = new NewsListAdapter(mContext, allLatestNews);
         newsGroupsRecyclerView.setAdapter(newsListAdapter);
     }
 
@@ -93,7 +92,6 @@ public class ItNewsPickupFragment extends Fragment {
 
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
-    @Nullable
     private void getNewsListFromSource(final String source) {
         Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {

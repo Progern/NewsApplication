@@ -16,7 +16,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("IT News");
-        View fragmentMainView = inflater.inflate(R.layout.fragment_settings, container, false);
-        return fragmentMainView;
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 }

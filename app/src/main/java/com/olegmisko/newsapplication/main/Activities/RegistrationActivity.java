@@ -19,7 +19,6 @@ import com.olegmisko.newsapplication.main.Services.DatabaseService;
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText usernameField, passwordField;
-    private Button registerButton;
     private TextInputLayout usernameInputLayout, passwordInputLayout;
     private RelativeLayout mainLayout;
 
@@ -27,11 +26,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        setTitle("Register");
+        setTitle("Registration");
+        DatabaseService.getSharedInstance().initRealm(this);
         mainLayout = (RelativeLayout) findViewById(R.id.activity_registration);
         usernameField = (EditText) findViewById(R.id.usernameField);
         passwordField = (EditText) findViewById(R.id.passwordField);
-        registerButton = (Button) findViewById(R.id.submitButton);
+        Button registerButton = (Button) findViewById(R.id.submitButton);
         usernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_username);
         passwordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_password);
 
@@ -50,16 +50,15 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        DatabaseService.getSharedInstance().initRealm(this);
         DatabaseService.getSharedInstance().writeToDataBase(usernameField.getText().toString(), passwordField.getText().toString());
         boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
         if (wasSuccessfull) {
-            showSnackBar(wasSuccessfull, mainLayout);
+            showSnackBar(true, mainLayout);
             Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
             startActivity(loadMainActivity);
             overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
         } else {
-            showSnackBar(wasSuccessfull, mainLayout);
+            showSnackBar(false, mainLayout);
         }
     }
 

@@ -11,9 +11,8 @@ import com.olegmisko.newsapplication.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MY_LOG";
+    private static boolean activityStarted;
     private ProgressBar loadProgressBar;
-    private CountDownTimer mCountDownTimer;
     private int progress = 0;
 
     @Override
@@ -24,13 +23,20 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+        if (activityStarted
+                && getIntent() != null
+                && (getIntent().getFlags() & Intent.FLAG_ACTIVITY_REORDER_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
+        activityStarted = true;
         loadProgressBar = (ProgressBar) findViewById(R.id.applicationLoadingProgressBar);
         loadProgressBar.setProgress(progress);
         startTimer();
     }
 
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(5000, 50) {
+        CountDownTimer mCountDownTimer = new CountDownTimer(2500, 25) {
 
             @Override
             public void onTick(long millisUntilFinished) {

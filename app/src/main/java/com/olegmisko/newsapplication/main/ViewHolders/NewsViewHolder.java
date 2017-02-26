@@ -2,13 +2,13 @@ package com.olegmisko.newsapplication.main.ViewHolders;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.olegmisko.newsapplication.R;
+import com.olegmisko.newsapplication.main.Activities.WebViewActivity;
 import com.olegmisko.newsapplication.main.Models.News;
 import com.squareup.picasso.Picasso;
 
@@ -45,16 +45,16 @@ public class NewsViewHolder extends ChildViewHolder implements View.OnClickListe
 
     /* This function checks if we have any URL attached
      * to the clicked news and loads a WebView if we have one. */
-    public void loadURLRequest() {
+    private void loadURLRequest() {
         if (this.url != null) {
-            Intent loadNews = new Intent(Intent.ACTION_VIEW);
-            loadNews.setData(Uri.parse(url));
-            loadNews.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent loadNews = new Intent(itemView.getContext(), WebViewActivity.class);
+            loadNews.putExtra("URL", url);
+            loadNews.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             itemView.getContext().startActivity(loadNews);
         }
     }
 
-    public String convertStringToDate(String date) {
+    private String convertStringToDate(String date) {
         if (date != null) {
             int endIndex = 0;
             for (int i = 0; i < date.length(); i++) {
