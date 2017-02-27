@@ -25,6 +25,8 @@ import com.olegmisko.newsapplication.main.Services.NetworkService;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +34,7 @@ import retrofit2.Response;
 
 public class ItNewsPickupFragment extends Fragment {
     private Context mContext;
-    private RecyclerView newsGroupsRecyclerView;
+    @BindView(R.id.news_titles_rv) RecyclerView newsGroupsRecyclerView;
 
     /* These lists hold the latest news from data sources
      * TODO: Simple caching in Realm */
@@ -53,7 +55,7 @@ public class ItNewsPickupFragment extends Fragment {
         getActivity().setTitle("IT News");
         View fragmentMainView = inflater.inflate(R.layout.fragment_world_news_pickup, container, false);
         mContext = getActivity().getApplicationContext();
-        newsGroupsRecyclerView = (RecyclerView) fragmentMainView.findViewById(R.id.news_titles_rv);
+        ButterKnife.bind(this, fragmentMainView);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(newsGroupsRecyclerView.getContext(),
                 new LinearLayoutManager(mContext).getOrientation());
         newsGroupsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));

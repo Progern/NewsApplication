@@ -12,17 +12,20 @@ import android.widget.ProgressBar;
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Services.CustomWebViewClient;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WebViewActivity extends Activity {
 
-    private ProgressBar loadPageProgress;
+    @BindView(R.id.loadPageProgress) ProgressBar loadPageProgress;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
+        ButterKnife.bind(this);
         WebView mainWebView = (WebView) findViewById(R.id.mainWebView);
-        loadPageProgress = (ProgressBar) findViewById(R.id.loadPageProgress);
         CustomWebViewClient mWebViewClient = new CustomWebViewClient();
         mainWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {

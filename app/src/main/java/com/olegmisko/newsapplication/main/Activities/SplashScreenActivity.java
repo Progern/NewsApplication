@@ -9,16 +9,20 @@ import android.widget.ProgressBar;
 
 import com.olegmisko.newsapplication.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
+    @BindView(R.id.applicationLoadingProgressBar) ProgressBar loadProgressBar;
     private static boolean activityStarted;
-    private ProgressBar loadProgressBar;
     private int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        ButterKnife.bind(this);
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -30,7 +34,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             return;
         }
         activityStarted = true;
-        loadProgressBar = (ProgressBar) findViewById(R.id.applicationLoadingProgressBar);
         loadProgressBar.setProgress(progress);
         startTimer();
     }

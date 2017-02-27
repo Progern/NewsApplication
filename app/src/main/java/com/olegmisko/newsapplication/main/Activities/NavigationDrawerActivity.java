@@ -20,15 +20,20 @@ import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Services.NotificationHandlerService;
 import com.onesignal.OneSignal;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawer;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        ButterKnife.bind(this);
         NotificationHandlerService notificationHandlerService = new NotificationHandlerService(getApplicationContext());
         OneSignal.startInit(this)
                 .setNotificationOpenedHandler(notificationHandlerService)
@@ -37,7 +42,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
@@ -55,7 +60,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             /*Do not need to perform any actions
              * on back pressed within main activity
               * for now.
-              * TODO: Perform a two-step application quit*/
+             */
         }
     }
 
@@ -73,9 +78,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SettingsFragment()).commit();
+            return true;
+        }
+        if (id == R.id.log_out) {
+            getSharedPreferences("MainPref", MODE_PRIVATE).edit().putBoolean("Logged_in", false).apply();
             return true;
         }
 
