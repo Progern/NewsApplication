@@ -26,8 +26,10 @@ public class WebViewActivity extends Activity {
         CustomWebViewClient mWebViewClient = new CustomWebViewClient();
         mainWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                Log.d("MY_LOG", "Progress " + progress);
                 loadPageProgress.setProgress(progress);
+                if (progress > 95) {
+                    loadPageProgress.setVisibility(View.GONE);
+                }
             }
         });
         mainWebView.getSettings().setJavaScriptEnabled(true);

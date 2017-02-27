@@ -10,15 +10,13 @@ import com.olegmisko.newsapplication.R;
 
 public class AuthorizationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button loginButton, signUpButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setTitle("Authorization");
-        loginButton = (Button) findViewById(R.id.loginButton);
-        signUpButton = (Button) findViewById(R.id.signup_button);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button signUpButton = (Button) findViewById(R.id.signup_button);
         loginButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
     }

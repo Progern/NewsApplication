@@ -1,0 +1,4 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#BDBDBD"
+    android:radius="1dp">
+</ripple>
