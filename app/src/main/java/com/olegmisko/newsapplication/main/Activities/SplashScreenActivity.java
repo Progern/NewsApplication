@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.olegmisko.newsapplication.R;
+import com.olegmisko.newsapplication.main.Services.NetworkConnectionService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,11 +52,25 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void onFinish() {
                 progress++;
                 loadProgressBar.setProgress(progress);
-                Intent startApplication = new Intent(getApplicationContext(), AuthorizationActivity.class);
-                startActivity(startApplication);
-                overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
+                if (NetworkConnectionService.getInstance().checkInternetConnection()) {
+                    loadApplication();
+                } else {
+                    loadNoNetworkActivity();
+                }
             }
         };
         mCountDownTimer.start();
+    }
+
+    private void loadApplication() {
+        Intent startApplication = new Intent(getApplicationContext(), AuthorizationActivity.class);
+        startActivity(startApplication);
+        overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
+    }
+
+    private void loadNoNetworkActivity() {
+        Intent startApplication = new Intent(getApplicationContext(), NoNetworkActivity.class);
+        startActivity(startApplication);
+        overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
 }

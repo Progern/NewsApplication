@@ -1,5 +1,6 @@
 package com.olegmisko.newsapplication.main.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -84,6 +85,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
         if (id == R.id.log_out) {
             getSharedPreferences("MainPref", MODE_PRIVATE).edit().putBoolean("Logged_in", false).apply();
+            loadAuthorizationOnLogOut();
             return true;
         }
 
@@ -113,5 +115,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void loadAuthorizationOnLogOut() {
+        Intent authorizationIntent = new Intent(this, AuthorizationActivity.class);
+        startActivity(authorizationIntent);
+        overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
 }
