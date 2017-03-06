@@ -1,6 +1,7 @@
 package com.olegmisko.newsapplication.main.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,15 +11,14 @@ import com.olegmisko.newsapplication.R;
 
 public class AuthorizationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button loginButton, signUpButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setTitle("Authorization");
-        loginButton = (Button) findViewById(R.id.loginButton);
-        signUpButton = (Button) findViewById(R.id.signup_button);
+        checkLoginState();
+        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button signUpButton = (Button) findViewById(R.id.signup_button);
         loginButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
     }
@@ -38,6 +38,19 @@ public class AuthorizationActivity extends AppCompatActivity implements View.OnC
                 break;
             default:
                 break;
+        }
+    }
+
+    private void loadApplication() {
+        Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
+        startActivity(loadMainActivity);
+        overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
+    }
+
+    private void checkLoginState() {
+        SharedPreferences preferences = getSharedPreferences("MainPref", MODE_PRIVATE);
+        if (preferences.getBoolean("Logged_in", false)) {
+            loadApplication();
         }
     }
 }

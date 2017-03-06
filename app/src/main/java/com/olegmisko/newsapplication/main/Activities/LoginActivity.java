@@ -1,6 +1,7 @@
 package com.olegmisko.newsapplication.main.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -12,32 +13,42 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Services.DatabaseService;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText usernameField, passwordField;
-    private TextInputLayout usernameInputLayout, passwordInputLayout;
-    private RelativeLayout mainLayout;
+    @BindView(R.id.usernameField)
+    EditText usernameField;
+    @BindView(R.id.passwordField)
+    EditText passwordField;
+    @BindView(R.id.input_layout_username)
+    TextInputLayout usernameInputLayout;
+    @BindView(R.id.input_layout_password)
+    TextInputLayout passwordInputLayout;
+    @BindView(R.id.activity_login2)
+    RelativeLayout mainLayout;
+    @BindView(R.id.submitButton)
+    Button registerButton;
+
+    private SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
         setTitle("Login");
+        ButterKnife.bind(this);
         DatabaseService.getSharedInstance().initRealm(this);
-        mainLayout = (RelativeLayout) findViewById(R.id.activity_login2);
-        usernameField = (EditText) findViewById(R.id.usernameField);
-        passwordField = (EditText) findViewById(R.id.passwordField);
-        Button registerButton = (Button) findViewById(R.id.submitButton);
-        usernameInputLayout = (TextInputLayout) findViewById(R.id.input_layout_username);
-        passwordInputLayout = (TextInputLayout) findViewById(R.id.input_layout_password);
-
+        preferences = getSharedPreferences("MainPref", MODE_PRIVATE);
         usernameField.addTextChangedListener(new CustomTextWatcher(usernameField));
         passwordField.addTextChangedListener(new CustomTextWatcher(passwordField));
-
         registerButton.setOnClickListener(this);
     }
 
@@ -51,13 +62,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
         if (wasSuccessfull) {
-            Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
-            startActivity(loadMainActivity);
-            overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
+            loadApplication();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("Logged_in", true);
+            editor.apply();
+
         } else {
             showSnackBar(false, mainLayout);
         }
 
+    }
+
+    private void loadApplication() {
+        Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
+        startActivity(loadMainActivity);
+        overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
 
     private boolean validateUsername() {
