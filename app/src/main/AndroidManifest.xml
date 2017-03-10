@@ -36,7 +36,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".main.Activities.NoNetworkActivity"></activity>
+        <activity android:name=".main.Activities.NoNetworkActivity" />
+
+        <service
+            android:name=".main.Services.CheckNewsService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

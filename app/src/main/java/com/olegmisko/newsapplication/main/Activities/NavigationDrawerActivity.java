@@ -18,6 +18,7 @@ import com.olegmisko.newsapplication.main.Fragments.ItNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.SettingsFragment;
 import com.olegmisko.newsapplication.main.Fragments.SportsNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.WorldNewsPickupFragment;
+import com.olegmisko.newsapplication.main.Services.CheckNewsService;
 import com.olegmisko.newsapplication.main.Services.NotificationHandlerService;
 import com.onesignal.OneSignal;
 
@@ -50,6 +51,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        startService(new Intent(this, CheckNewsService.class));
     }
 
     @Override
@@ -99,7 +101,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_world_news) {
-            // TODO: Load world news pickup fragment
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new WorldNewsPickupFragment()).commit();
         } else if (id == R.id.nav_business_news) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new BusinessNewsPickupFragment()).commit();
