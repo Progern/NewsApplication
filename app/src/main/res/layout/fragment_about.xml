@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.olegmisko.newsapplication.main.Fragments.AboutFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            app:srcCompat="@drawable/app_icon_navbar"
+            android:id="@+id/imageView3"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mainText"
+            android:text="The Newsie application is free-to-use \nand is extremely fast on any network speed.\n
+    Made by Oleh Misko, Ukraine 2017."
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="18sp"
+            android:paddingTop="30dp"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,9 +1,11 @@
 package com.olegmisko.newsapplication.main.Activities;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.olegmisko.newsapplication.R;
+import com.olegmisko.newsapplication.main.Fragments.AboutFragment;
 import com.olegmisko.newsapplication.main.Fragments.BusinessNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.ItNewsPickupFragment;
 import com.olegmisko.newsapplication.main.Fragments.SettingsFragment;
@@ -88,6 +91,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         if (id == R.id.log_out) {
             getSharedPreferences("MainPref", MODE_PRIVATE).edit().putBoolean("Logged_in", false).apply();
             loadAuthorizationOnLogOut();
+            stopService(new Intent(this, CheckNewsService.class));
             return true;
         }
 
@@ -101,21 +105,25 @@ public class NavigationDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_world_news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new WorldNewsPickupFragment()).commit();
+            changeFragment(new WorldNewsPickupFragment());
         } else if (id == R.id.nav_business_news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new BusinessNewsPickupFragment()).commit();
+            changeFragment(new BusinessNewsPickupFragment());
         } else if (id == R.id.nav_sports_news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SportsNewsPickupFragment()).commit();
+            changeFragment(new SportsNewsPickupFragment());
         } else if (id == R.id.nav_it_news) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new ItNewsPickupFragment()).commit();
+            changeFragment(new ItNewsPickupFragment());
         } else if (id == R.id.nav_settings) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new SettingsFragment()).commit();
+            changeFragment(new SettingsFragment());
         } else if (id == R.id.nav_about) {
-            // TODO: Load about application fragment
+            changeFragment(new AboutFragment());
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void changeFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).commit();
     }
 
     private void loadAuthorizationOnLogOut() {
