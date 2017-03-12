@@ -39,8 +39,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         startTimer();
     }
 
+    /* Splash screen progress  */
     private void startTimer() {
-        CountDownTimer mCountDownTimer = new CountDownTimer(2500, 25) {
+        CountDownTimer mCountDownTimer = new CountDownTimer(1200, 12) {
 
             @Override
             public void onTick(long millisUntilFinished) {

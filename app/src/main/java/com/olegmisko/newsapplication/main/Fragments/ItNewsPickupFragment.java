@@ -36,8 +36,7 @@ public class ItNewsPickupFragment extends Fragment {
     private Context mContext;
     @BindView(R.id.news_titles_rv) RecyclerView newsGroupsRecyclerView;
 
-    /* These lists hold the latest news from data sources
-     * TODO: Simple caching in Realm */
+    /* These lists hold the latest news from data sources */
     private List<News> ign;
     private List<News> reddit;
     private List<News> techcrunch;

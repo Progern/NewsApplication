@@ -36,7 +36,7 @@ public class SportsNewsPickupFragment extends Fragment {
     @BindView(R.id.news_titles_rv) RecyclerView newsGroupsRecyclerView;
 
     /* These lists hold the latest news from data sources
-     * TODO: Simple caching in Realm */
+     */
     private List<News> espn;
     private List<News> football_italia;
     private List<News> nfl;

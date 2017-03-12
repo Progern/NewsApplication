@@ -61,9 +61,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        DatabaseService.getSharedInstance().writeToDataBase(usernameField.getText().toString(), passwordField.getText().toString());
-        boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
-        if (wasSuccessfull) {
+        if (performRegistration(usernameField.getText().toString(), passwordField.getText().toString())) {
             loadApplication();
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("Logged_in", true);
@@ -73,12 +71,19 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    /* Write into database and check if it was succesfull */
+    private boolean performRegistration(String username, String password) {
+        DatabaseService.getSharedInstance().writeToDataBase(username, password);
+        return DatabaseService.getSharedInstance().checkCredentials(username, password);
+    }
+
     private void loadApplication() {
         Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
         startActivity(loadMainActivity);
         overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
 
+    /* Watches the username field to be filled */
     private boolean validateUsername() {
         if (usernameField.getText().toString().trim().isEmpty()) {
             usernameInputLayout.setError("This field is required");
@@ -91,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         return true;
     }
 
+    /* Watches the password field to be filled */
     private boolean validatePassword() {
         if (passwordField.getText().toString().trim().isEmpty()) {
             passwordInputLayout.setError("This field is required");
@@ -111,7 +117,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private void showSnackBar(boolean successOfRegistration, View view) {
         if (successOfRegistration) {
-            Snackbar success = Snackbar.make(view, "Registrated succesfully", Snackbar.LENGTH_LONG);
+            Snackbar success = Snackbar.make(view, "Registered successfully", Snackbar.LENGTH_LONG);
             success.show();
         } else {
             Snackbar unsuccess = Snackbar.make(view, "Something wen't wrong. Please, try again", Snackbar.LENGTH_LONG);
@@ -142,14 +148,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Do nothing
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Meh, do nothing too
         }
 
+        /* If the fields were filled and cleaned there will be
+         * a text, saying "These field are required*/
         @Override
         public void afterTextChanged(Editable s) {
             switch (view.getId()) {

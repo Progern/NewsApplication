@@ -11,8 +11,8 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Models.News;
 import com.olegmisko.newsapplication.main.Models.NewsGroup;
-import com.olegmisko.newsapplication.main.ViewHolders.NewsGroupViewHolder;
-import com.olegmisko.newsapplication.main.ViewHolders.NewsViewHolder;
+import com.olegmisko.newsapplication.main.Views.NewsGroupViewHolder;
+import com.olegmisko.newsapplication.main.Views.NewsViewHolder;
 
 import java.util.List;
 

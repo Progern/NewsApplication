@@ -1,4 +1,4 @@
-package com.olegmisko.newsapplication.main.ViewHolders;
+package com.olegmisko.newsapplication.main.Views;
 
 
 import android.view.View;

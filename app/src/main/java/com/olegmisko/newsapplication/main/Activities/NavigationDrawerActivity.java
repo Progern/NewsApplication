@@ -89,9 +89,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.log_out) {
-            getSharedPreferences("MainPref", MODE_PRIVATE).edit().putBoolean("Logged_in", false).apply();
-            loadAuthorizationOnLogOut();
-            stopService(new Intent(this, CheckNewsService.class));
+            performLogOut();
             return true;
         }
 
@@ -122,11 +120,15 @@ public class NavigationDrawerActivity extends AppCompatActivity
         return true;
     }
 
+
     private void changeFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).commit();
     }
 
-    private void loadAuthorizationOnLogOut() {
+    /* Changes login state and loads authorization activity, also stops the service with notifications */
+    private void performLogOut() {
+        getSharedPreferences("MainPref", MODE_PRIVATE).edit().putBoolean("Logged_in", false).apply();
+        stopService(new Intent(this, CheckNewsService.class));
         Intent authorizationIntent = new Intent(this, AuthorizationActivity.class);
         startActivity(authorizationIntent);
         overridePendingTransition(R.anim.alpha, R.anim.alpha_out);

@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.olegmisko.newsapplication.R;
 import com.olegmisko.newsapplication.main.Services.DatabaseService;
@@ -60,8 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validatePassword()) {
             return;
         }
-        boolean wasSuccessfull = DatabaseService.getSharedInstance().checkCredentials(usernameField.getText().toString(), passwordField.getText().toString());
-        if (wasSuccessfull) {
+
+        if (checkCredentials(usernameField.getText().toString(), passwordField.getText().toString())) {
             loadApplication();
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("Logged_in", true);
@@ -73,12 +72,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /* Checks the typed in credentials with user database */
+    private boolean checkCredentials(String username, String password) {
+        return DatabaseService.getSharedInstance().checkCredentials(username, password);
+    }
+
+    /* Loads application on successful login */
     private void loadApplication() {
         Intent loadMainActivity = new Intent(this, NavigationDrawerActivity.class);
         startActivity(loadMainActivity);
         overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
 
+   /* Watches the username field to be filled */
     private boolean validateUsername() {
         if (usernameField.getText().toString().trim().isEmpty()) {
             usernameInputLayout.setError("This field is required");
@@ -91,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
+    /* Watches the password field to be filled */
     private boolean validatePassword() {
         if (passwordField.getText().toString().trim().isEmpty()) {
             passwordInputLayout.setError("This field is required");
@@ -109,9 +116,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
     private void showSnackBar(boolean successOfRegistration, View view) {
         if (successOfRegistration) {
-            Snackbar success = Snackbar.make(view, "Logged in succesfully", Snackbar.LENGTH_LONG);
+            Snackbar success = Snackbar.make(view, "Logged in successful", Snackbar.LENGTH_LONG);
             success.show();
         } else {
             Snackbar unsuccess = Snackbar.make(view, "Something wen't wrong. Please, try again", Snackbar.LENGTH_LONG);
@@ -121,7 +129,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.submitButton:
                 submitLogin();
@@ -131,25 +138,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private class CustomTextWatcher implements TextWatcher {
 
+    /* Watches for text in login and password fields*/
+    private class CustomTextWatcher implements TextWatcher {
         private View view;
 
         private CustomTextWatcher(View view) {
             this.view = view;
         }
 
-
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Do nothing
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Meh, do nothing too
         }
 
+        /* If the fields were filled and cleaned there will be
+         * a text, saying "These field are required*/
         @Override
         public void afterTextChanged(Editable s) {
             switch (view.getId()) {

@@ -37,7 +37,7 @@ public class WorldNewsPickupFragment extends Fragment {
     @BindView(R.id.news_titles_rv) RecyclerView newsGroupsRecyclerView;
 
     /* These lists hold the latest news from data sources
-     * TODO: Simple caching in Realm */
+    */
     private List<News> bbc_l;
     private List<News> guardian_l;
     private List<News> handelsblatt;
