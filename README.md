@@ -1,6 +1,6 @@
 # NewsApplication
 
-Application that lets you read news about favorite topics from favorite headlines! 
+Application that lets you read news about different topics from your favorite headlines! 
 
 Currently using:
 
