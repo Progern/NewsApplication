@@ -3,10 +3,19 @@ package com.olegmisko.newsapplication.main.Config;
 
 public class AppConstants {
 
+
+
+    public static final String LOG_TAG = "MY_LOG";
+
     /* Constants for HTTP Requests */
 
     public static final String BASE_REQUEST_URL = "https://newsapi.org/v1/";
     public static final String API_KEY = "70e1bc5e1b934612ad8930ba4eb1a0f2";
+
+    /* Broadcasting constants */
+
+    public static final String BROADCAST_ACTION_NO_INTERNET_CONNECTION = "show_snackbar_on_no_network_connection";
+    public static final String BROADCAST_ACTION_INTERNET_CONNECTION_APPEARED = "show_snackbar_on_network_connection_appeared";
 
     /* Sorting configurations */
 

@@ -28,16 +28,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckNewsService extends Service {
+public class NewsCheckingService extends Service {
 
-    public static final String LOG_TAG = "MY_LOG";
     private static final long REPEAT_TIME = 1000 * 14400;
-    //private static final long REPEAT_TIME = 1000 * 60;
     private Timer timer;
     private NotificationManager notificationManager;
 
 
-    public CheckNewsService() {
+    public NewsCheckingService() {
     }
 
     @Override
@@ -45,7 +43,7 @@ public class CheckNewsService extends Service {
         super.onCreate();
         timer = new Timer();
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Log.d(LOG_TAG, "onCreate service");
+        Log.d(AppConstants.LOG_TAG, "onCreate service");
     }
 
     @TargetApi(Build.VERSION_CODES.ECLAIR)
@@ -58,7 +56,7 @@ public class CheckNewsService extends Service {
             }
         };
         timer.schedule(hourlyTask, REPEAT_TIME, REPEAT_TIME);
-        Log.d(LOG_TAG, "onStartCommand service");
+        Log.d(AppConstants.LOG_TAG, "onStartCommand service");
         return Service.START_STICKY;
     }
 
@@ -75,22 +73,22 @@ public class CheckNewsService extends Service {
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
     private void getNewsListFromSource(final String source) {
-        Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
+        Call<NewsList> newsCall = NetworkRequestService.API.getLatestNews(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {
                 if (response.isSuccessful()) {
                     News currentNews = response.body().getNewsList().get(getRandomNumber(9));
                     createAndSendNotification(currentNews.getTitle(), currentNews.getShortDescription(), currentNews.getImageUrl());
-                    Log.d("MY_LOG", "Response is successful");
+                    Log.d(AppConstants.LOG_TAG, "Response is successful");
                 } else {
-                    Log.d("MY_LOG", "Response is unsuccessful");
+                    Log.d(AppConstants.LOG_TAG, "Response is unsuccessful");
                 }
             }
 
             @Override
             public void onFailure(Call<NewsList> call, Throwable t) {
-                Log.d("MY_LOG", "Response failed");
+                Log.d(AppConstants.LOG_TAG, "Response failed");
             }
         });
     }
@@ -156,14 +154,14 @@ public class CheckNewsService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.d(LOG_TAG, "onUnbind service");
+        Log.d(AppConstants.LOG_TAG, "onUnbind service");
         return super.onUnbind(intent);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(LOG_TAG, "onDestroy service");
+        Log.d(AppConstants.LOG_TAG, "onDestroy service");
     }
 
 }

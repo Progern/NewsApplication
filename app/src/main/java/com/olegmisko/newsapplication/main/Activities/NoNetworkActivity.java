@@ -25,18 +25,19 @@ public class NoNetworkActivity extends AppCompatActivity implements View.OnClick
         tryAgain.setOnClickListener(this);
     }
 
-    private void loadApplicationOnNetworkSuccess() {
+    private void loadApplicationOnNetworkAppearance() {
         Intent startApplication = new Intent(getApplicationContext(), AuthorizationActivity.class);
         startActivity(startApplication);
         overridePendingTransition(R.anim.alpha, R.anim.alpha_out);
     }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.try_again_text:
                 if (NetworkConnectionService.getInstance().checkInternetConnection()) {
-                    loadApplicationOnNetworkSuccess();
+                    loadApplicationOnNetworkAppearance();
                 }
         }
     }

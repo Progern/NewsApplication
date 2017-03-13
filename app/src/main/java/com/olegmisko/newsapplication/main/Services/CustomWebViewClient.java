@@ -6,6 +6,7 @@ import android.webkit.WebViewClient;
 
 
 public class CustomWebViewClient extends WebViewClient {
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         return false;

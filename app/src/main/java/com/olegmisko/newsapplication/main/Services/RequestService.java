@@ -25,7 +25,6 @@ public interface RequestService {
 
 
     @GET("articles?")
-    Call<NewsList> GETLatesNewsList(@Query("source") String newsSource, @Query("sortby") String sortBy, @Query("apikey") String apiKey);
-
+    Call<NewsList> getLatestNews(@Query("source") String newsSource, @Query("sortby") String sortBy, @Query("apikey") String apiKey);
 
 }

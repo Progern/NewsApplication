@@ -19,7 +19,7 @@ import com.olegmisko.newsapplication.main.Config.AppConstants;
 import com.olegmisko.newsapplication.main.Models.News;
 import com.olegmisko.newsapplication.main.Models.NewsGroup;
 import com.olegmisko.newsapplication.main.Models.NewsList;
-import com.olegmisko.newsapplication.main.Services.NetworkService;
+import com.olegmisko.newsapplication.main.Services.NetworkRequestService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -95,22 +95,22 @@ public class WorldNewsPickupFragment extends Fragment {
     /* Performs HTTP-requests to the endpoint-server
      * and fetches data from source name */
     private void getNewsListFromSource(final String source) {
-        Call<NewsList> newsCall = NetworkService.API.GETLatesNewsList(source, AppConstants.TOP, AppConstants.API_KEY);
+        Call<NewsList> newsCall = NetworkRequestService.API.getLatestNews(source, AppConstants.TOP, AppConstants.API_KEY);
         newsCall.enqueue(new Callback<NewsList>() {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {
                 if (response.isSuccessful()) {
                     checkSourceAndFetchData(source, response.body().getNewsList());
                     loadedAnotherHeader();
-                    Log.d("MY_LOG", "Response is successful");
+                    Log.d(AppConstants.LOG_TAG, "Response is successful");
                 } else {
-                    Log.d("MY_LOG", "Response is unsuccessful");
+                    Log.d(AppConstants.LOG_TAG, "Response is unsuccessful");
                 }
             }
 
             @Override
             public void onFailure(Call<NewsList> call, Throwable t) {
-                Log.d("MY_LOG", "Response failed");
+                Log.d(AppConstants.LOG_TAG, "Response failed");
             }
         });
     }
@@ -147,7 +147,7 @@ public class WorldNewsPickupFragment extends Fragment {
      * the dialog and fetches data*/
     private void loadedAnotherHeader() {
         loadedNewsHeaders++;
-        Log.d("MY_LOG", "Already loaded " + loadedNewsHeaders + " news headers");
+        Log.d(AppConstants.LOG_TAG, "Already loaded " + loadedNewsHeaders + " news headers");
         if (loadedNewsHeaders == 10) {
             dialog.dismiss();
             getLatestNews();

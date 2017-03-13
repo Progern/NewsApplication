@@ -39,9 +39,15 @@
         <activity android:name=".main.Activities.NoNetworkActivity" />
 
         <service
-            android:name=".main.Services.CheckNewsService"
+            android:name=".main.Services.NewsCheckingService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <receiver android:name=".main.Services.NetworkConnectionReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
