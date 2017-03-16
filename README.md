@@ -9,4 +9,6 @@ Currently using:
 - Custom View libraries for tasty UI/UX
 - OneSignal as Push-Notification source
 - Picasso to load images fast & fancy
+- ButterKnife for dependency injection
+
 
