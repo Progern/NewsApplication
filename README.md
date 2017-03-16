@@ -11,4 +11,13 @@ Currently using:
 - Picasso to load images fast & fancy
 - ButterKnife for dependency injection
 
+What you can do with this application:
+
+- Review different news headlines, depending on your taste
+- Share news with your friends via social network apps
+- Load the news headline in built-in webview and navigate through site
+- Receive push-notifications from different headlines with most interesting news
+- Register a user (locally) and login, so that some screens would be passed if you're logged in
+
+
 
